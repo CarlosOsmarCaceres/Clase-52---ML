@@ -26,7 +26,8 @@ const controller = {
 		res.render("product-create-form")
 	},
 	
-	// Create -  Method to store
+	// Create -  Method to store - 
+	// Desde Desde Vender, formulario de creacion, accion crear producto
 		store: (req, res) => {
 			let lastId = 0;
 			products.forEach(product => {
@@ -36,7 +37,8 @@ const controller = {
 			});
 			let newProduct = {
 				...req.body,//con expres operator ... trae todas las propiedades de req body.
-				id: lastId + 1
+				id: lastId + 1, // agrega un id nuevo
+				image: "default-image.png"
 			}
 			products.push(newProduct);
 
