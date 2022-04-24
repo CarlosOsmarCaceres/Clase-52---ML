@@ -3,6 +3,7 @@ const path = require('path');
 
 const productsFilePath = path.join(__dirname, '../data/productsDataBase.json');
 const products = JSON.parse(fs.readFileSync(productsFilePath, 'utf-8'));
+const writeProducts = (data)=> fs.writeFileSync(productsFilePath,JSON.stringify(data),"utf-8");
 
 const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
@@ -26,8 +27,21 @@ const controller = {
 	},
 	
 	// Create -  Method to store
-	store: (req, res) => {
-		// Do the magic
+		store: (req, res) => {
+			let lastId = 0;
+			products.forEach(product => {
+				if(product.id > lastId){
+					lastId = product.id
+				}
+			});
+			let newProduct = {
+				...req.body,//con expres operator ... trae todas las propiedades de req body.
+				id: lastId + 1
+			}
+			products.push(newProduct);
+
+			writeProducts(products);
+			res.send(`El producto ${req.body.name} a sido creado exitosamente`)
 	},
 
 	// Update - Form to edit
