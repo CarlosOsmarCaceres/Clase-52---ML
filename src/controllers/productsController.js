@@ -65,8 +65,24 @@ const controller = {
 		})
 	},
 	// Update - Method to update
+	// MOdifica el producto
 	update: (req, res) => {
 		let productId = +req.params.id;// CApturamos el id del prodcuto
+		products.forEach(product => {
+			if (product.id === productId) {
+				
+				product.name = req.body.name,
+				product.price = req.body.price,
+				product.discount = req.body.discount,
+				product.category = req.body.category,
+				product.description = req.body.description
+			
+			}
+		});
+		//escribimos el array de productos con write
+		writeProducts(products)
+
+		res.send(`Modificaste el producto ${req.body.name} exitosamente`)
 	},
 
 	// Delete - Delete one product from DB
