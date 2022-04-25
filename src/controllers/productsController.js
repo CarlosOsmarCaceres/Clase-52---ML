@@ -9,6 +9,7 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	// Root - Show all products
+	//Muestra todos los productos
 	index: (req, res) => {
 		res.render("products", {
 			products,
@@ -18,10 +19,17 @@ const controller = {
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
-		// Do the magic
+		let productId = +req.params.id;// Para obtener el id del producto
+		let product = products.find(product => product.id === productId);
+
+		res.render("detail",{
+			product,
+			toThousand
+		})
 	},
 
 	// Create - Form to create
+	//Muestra el formulario de creacion
 	create: (req, res) => {
 		res.render("product-create-form")
 	},
@@ -47,12 +55,18 @@ const controller = {
 	},
 
 	// Update - Form to edit
+	//muestra el formulario de edicion
 	edit: (req, res) => {
-		// Do the magic
+		let productId = +req.params.id;// CApturamos el id del prodcuto
+		let product = products.find(product => product.id === productId);
+		
+		res.render("product-edit-form",{
+			product
+		})
 	},
 	// Update - Method to update
 	update: (req, res) => {
-		// Do the magic
+		let productId = +req.params.id;// CApturamos el id del prodcuto
 	},
 
 	// Delete - Delete one product from DB
