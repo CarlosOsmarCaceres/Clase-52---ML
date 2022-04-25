@@ -87,7 +87,20 @@ const controller = {
 
 	// Delete - Delete one product from DB
 	destroy : (req, res) => {
-		// Do the magic
+		let productId = +req.params.id;// CApturamos el id del prodcuto
+		let productTodelete;
+
+		products.forEach(product => {
+			if (product.id === productId) {
+				productTodelete = product.name
+				let productTodeleteIndex = products.indexOf(product)
+				products.splice(productTodeleteIndex, 1);	
+			}
+		});
+
+		writeProducts(products)
+
+		res.send(`Eliminaste el producto ${productTodelete} exitosamente`)
 	}
 };
 
